@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    style="@style/NavPage">
+    
+    <Button
+        android:id="@+id/reg_mbtn"
+        style="@style/MMLineActionButton"
+	    android:layout_margin="10dp"
+	    android:onClick="regToWX"
+	    android:text="@string/reg"/>
+    
+    <Button
+        android:id="@+id/goto_send_mbtn"
+        style="@style/MMLineActionButton"
+        android:layout_margin="10dp"
+        android:onClick="sendToWX"
+        android:text="@string/send_to_wx" />
+
+    <Button
+        android:id="@+id/send_server_btn"
+        style="@style/MMLineActionButton"
+        android:layout_margin="10dp"
+        android:onClick="sendToWXFriend"
+        android:text="@string/send_to_wxfriend" />
+
+    <Button
+        android:id="@+id/get_server_btn"
+        style="@style/MMLineActionButton"
+        android:layout_margin="10dp"
+        android:onClick="getFromMyServer"
+        android:text="@string/get_from_server" />
+
+</LinearLayout>

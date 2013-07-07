@@ -14,6 +14,7 @@ import com.tencent.mm.sdk.openapi.WXTextObject;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
@@ -33,7 +34,9 @@ public class MainActivity extends Activity implements IWXAPIEventHandler{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		System.out.println("Land Main Activity start...");
+		
+		setContentView(R.layout.main);
 		
 		api = WXAPIFactory.createWXAPI(this, Constants.APP_ID);
 				
@@ -53,7 +56,7 @@ public class MainActivity extends Activity implements IWXAPIEventHandler{
 	}
 	
 	public void sendToWX(View v) {
-		String text = "测试数据";
+		String text = "来自MyDemo的消息";
 		WXTextObject textObj = new WXTextObject();
 		textObj.text = text;
 		
@@ -72,7 +75,34 @@ public class MainActivity extends Activity implements IWXAPIEventHandler{
 		
 		// 调用api接口发送数据到微信
 		api.sendReq(req);
-		finish();
+		//finish();
+	}
+	
+	public void sendToWXFriend(View v) {
+		String text = "来自MyDemo的消息";
+		WXTextObject textObj = new WXTextObject();
+		textObj.text = text;
+		
+		// 用WXTextObject对象初始化一个WXMediaMessage对象
+		WXMediaMessage msg = new WXMediaMessage();
+		msg.mediaObject = textObj;
+		// 发送文本类型的消息时，title字段不起作用
+		// msg.title = "Will be ignored";
+		msg.description = text;
+		
+		// 构造一个Req
+		SendMessageToWX.Req req = new SendMessageToWX.Req();
+		req.transaction = buildTransaction("text"); // transaction字段用于唯一标识一个请求
+		req.message = msg;
+		req.scene = SendMessageToWX.Req.WXSceneTimeline;
+		
+		// 调用api接口发送数据到微信
+		api.sendReq(req);
+	}
+	
+	public void getFromMyServer(View v) {
+		Intent _intent = new Intent(this, ShowAnnounceActivity.class);
+		startActivity(_intent);
 	}
 	
 	private String buildTransaction(final String type) {

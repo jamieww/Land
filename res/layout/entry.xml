@@ -23,13 +23,13 @@
 	    android:text="@string/goto_send"/>
     
     <Button
-        android:id="@+id/launch_wx_btn"
+        android:id="@+id/get_server_btn"
         style="@style/MMLineActionButton"
 	    android:layout_margin="10dp"
         android:text="@string/launch_wx"/>
     
     <Button
-        android:id="@+id/check_timeline_supported_btn"
+        android:id="@+id/send_server_btn"
         style="@style/MMLineActionButton"
         android:layout_margin="10dp"
         android:text="@string/check_timeline_supported"/>

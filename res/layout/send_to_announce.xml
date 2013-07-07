@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+	<TextView
+	    android:id="@+id/TextView01"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="标题" />
+	 <EditText
+		 android:id="@+id/etTitle"
+		 android:layout_width="match_parent"
+		 android:layout_height="wrap_content"/>
+	    
+	<TextView
+		android:id="@+id/TextView02"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="内容"/>
+
+	<EditText
+	    android:id="@+id/etContent"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="top"
+	    android:layout_weight="1"
+	    android:scrollbars="vertical"/>
+	
+	<Button
+		android:id="@+id/send_announce_btn"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:onClick="sendAnnounceContent"
+		android:layout_margin="10dp"
+		style="@style/MMLineActionButton"
+		android:text="提交评论"/>
+
+</LinearLayout>

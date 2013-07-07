@@ -18,6 +18,9 @@
     <string name="app_finish">完成</string>
     <string name="app_find">查找</string>
     <string name="app_edit">编辑</string>
+    
+	<string name="get_from_server">与服务器接交互数据</string>
+    <string name="send_to_server">向服务器发送数据</string>
 
     <!-- applet -->
     <string name="applet_secimg_title">填写验证码</string>
@@ -50,6 +53,8 @@
     <string name="enter">这是SDK_Sample的入口界面</string>
     <string name="reg">将该app注册到微信</string>
     <string name="goto_send">跳转到发消息界面</string>
+    <string name="send_to_wx">发送消息到微信</string>
+    <string name="send_to_wxfriend">发送消息到朋友圈</string>
     <string name="launch_wx">启动微信</string>
     <string name="check_timeline_supported">检查是否支持发送到朋友圈</string>
     

@@ -61,7 +61,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler{
 			}
 		});
         
-        launchBtn = (Button) findViewById(R.id.launch_wx_btn);
+        launchBtn = (Button) findViewById(R.id.get_server_btn);
         launchBtn.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -70,7 +70,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler{
 			}
 		});
         
-        checkBtn = (Button) findViewById(R.id.check_timeline_supported_btn);
+        checkBtn = (Button) findViewById(R.id.send_server_btn);
         checkBtn.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
