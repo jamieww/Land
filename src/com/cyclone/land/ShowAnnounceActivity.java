@@ -44,8 +44,10 @@ import android.widget.Toast;
 
 public class ShowAnnounceActivity extends Activity {
 
-	private String landURL = "http://192.168.1.100:8080/webLand/announce_xml.jsp";
-	private String postURL = "http://192.168.1.100:8080/webLand/announce.jsp";
+	//private String landURL = "http://192.168.1.100:8080/webLand/announce_xml.jsp";
+	//private String postURL = "http://192.168.1.100:8080/webLand/announce.jsp";
+	private String landURL = "http://172.27.0.1:8080/webLand/announce_xml.jsp";
+	private String postURL = "http://172.27.0.1:8080/webLand/announce.jsp";
 	private HttpClient httpClient = new DefaultHttpClient();
 	
 	private List<Announce> announces;
@@ -145,7 +147,7 @@ public class ShowAnnounceActivity extends Activity {
 			System.out.println("Show Announce Activity 3");
 			if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 				System.out.println("Show Announce Activity 4");
-				announces = parseDate(response.getEntity().getContent()); 
+				announces = parseData(response.getEntity().getContent()); 
 				//String result = EntityUtils.toString(response.getEntity(),"UTF-8");
 				//System.out.println(result);
 			}
@@ -195,7 +197,7 @@ public class ShowAnnounceActivity extends Activity {
 		}   
 	}
 	
-	public List<Announce> parseDate(InputStream inStream) {
+	public List<Announce> parseData(InputStream inStream) {
 		List<Announce> announces = null;
 		Announce currentAnnounce = null;
 

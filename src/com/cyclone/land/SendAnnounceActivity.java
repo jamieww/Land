@@ -36,7 +36,8 @@ import android.widget.Toast;
  */
 public class SendAnnounceActivity extends Activity {
 
-	private String postURL = "http://192.168.1.100:8080/webLand/announce.jsp";
+	//private String postURL = "http://192.168.1.100:8080/webLand/announce.jsp";
+	private String postURL = "http://172.27.0.1:8080/webLand/announce.jsp";
 	
 	private Context mContext;
 	private EditText etTitle;
