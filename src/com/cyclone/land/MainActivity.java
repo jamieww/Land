@@ -22,13 +22,13 @@ import android.widget.Toast;
 public class MainActivity extends Activity implements IWXAPIEventHandler{
 
 	/* 
-	 * Èç¹ûsceneÌîWXSceneSession£¨Ä¬ÈÏÖµ£©£¬ÄÇÃ´ÏûÏ¢»á·¢ËÍÖÁÎ¢ĞÅµÄ»á»°ÄÚ¡£
-	 * Èç¹ûsceneÌîWXSceneTimeline£¬ÄÇÃ´ÏûÏ¢»á·¢ËÍÖÁÅóÓÑÈ¦¡£
-	 * £¨Î¢ĞÅ4.2ÒÔÉÏÖ§³ÖWXSceneTimeline£¬¿Éµ÷ÓÃIWXAPIµÄgetWXAppSupportAPI·½·¨¼ì²éÎ¢ĞÅ°æ±¾,0x21020001¼°ÒÔÉÏÖ§³Ö·¢ËÍÅóÓÑÈ¦£©
+	 * å¦‚æœsceneå¡«WXSceneSessionï¼ˆé»˜è®¤å€¼ï¼‰ï¼Œé‚£ä¹ˆæ¶ˆæ¯ä¼šå‘é€è‡³å¾®ä¿¡çš„ä¼šè¯å†…ã€‚
+	 * å¦‚æœsceneå¡«WXSceneTimelineï¼Œé‚£ä¹ˆæ¶ˆæ¯ä¼šå‘é€è‡³æœ‹å‹åœˆã€‚
+	 * ï¼ˆå¾®ä¿¡4.2ä»¥ä¸Šæ”¯æŒWXSceneTimelineï¼Œå¯è°ƒç”¨IWXAPIçš„getWXAppSupportAPIæ–¹æ³•æ£€æŸ¥å¾®ä¿¡ç‰ˆæœ¬,0x21020001åŠä»¥ä¸Šæ”¯æŒå‘é€æœ‹å‹åœˆï¼‰
 	 * */
 	private static final int TIMELINE_SUPPORTED_VERSION = 0x21020001;
 	
-	// IWXAPI ÊÇµÚÈı·½appºÍÎ¢ĞÅÍ¨ĞÅµÄopenapi½Ó¿Ú
+	// IWXAPI æ˜¯ç¬¬ä¸‰æ–¹appå’Œå¾®ä¿¡é€šä¿¡çš„openapiæ¥å£
     private IWXAPI api;
     
 	@Override
@@ -50,53 +50,53 @@ public class MainActivity extends Activity implements IWXAPIEventHandler{
 	}
 	
 	public void regToWX(View v) {
-		// Í¨¹ıWXAPIFactory¹¤³§£¬»ñÈ¡IWXAPIµÄÊµÀı
+		// é€šè¿‡WXAPIFactoryå·¥å‚ï¼Œè·å–IWXAPIçš„å®ä¾‹
     	api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, false);
     	api.registerApp(Constants.APP_ID);
 	}
 	
 	public void sendToWX(View v) {
-		String text = "À´×ÔMyDemoµÄÏûÏ¢";
+		String text = "æ¥è‡ªMyDemoçš„æ¶ˆæ¯";
 		WXTextObject textObj = new WXTextObject();
 		textObj.text = text;
 		
-		// ÓÃWXTextObject¶ÔÏó³õÊ¼»¯Ò»¸öWXMediaMessage¶ÔÏó
+		// ç”¨WXTextObjectå¯¹è±¡åˆå§‹åŒ–ä¸€ä¸ªWXMediaMessageå¯¹è±¡
 		WXMediaMessage msg = new WXMediaMessage();
 		msg.mediaObject = textObj;
-		// ·¢ËÍÎÄ±¾ÀàĞÍµÄÏûÏ¢Ê±£¬title×Ö¶Î²»Æğ×÷ÓÃ
+		// å‘é€æ–‡æœ¬ç±»å‹çš„æ¶ˆæ¯æ—¶ï¼Œtitleå­—æ®µä¸èµ·ä½œç”¨
 		// msg.title = "Will be ignored";
 		msg.description = text;
 		
-		// ¹¹ÔìÒ»¸öReq
+		// æ„é€ ä¸€ä¸ªReq
 		SendMessageToWX.Req req = new SendMessageToWX.Req();
-		req.transaction = buildTransaction("text"); // transaction×Ö¶ÎÓÃÓÚÎ¨Ò»±êÊ¶Ò»¸öÇëÇó
+		req.transaction = buildTransaction("text"); // transactionå­—æ®µç”¨äºå”¯ä¸€æ ‡è¯†ä¸€ä¸ªè¯·æ±‚
 		req.message = msg;
 		//req.scene = isTimelineCb.isChecked() ? SendMessageToWX.Req.WXSceneTimeline : SendMessageToWX.Req.WXSceneSession;
 		
-		// µ÷ÓÃapi½Ó¿Ú·¢ËÍÊı¾İµ½Î¢ĞÅ
+		// è°ƒç”¨apiæ¥å£å‘é€æ•°æ®åˆ°å¾®ä¿¡
 		api.sendReq(req);
 		//finish();
 	}
 	
 	public void sendToWXFriend(View v) {
-		String text = "À´×ÔMyDemoµÄÏûÏ¢";
+		String text = "æ¥è‡ªMyDemoçš„æ¶ˆæ¯";
 		WXTextObject textObj = new WXTextObject();
 		textObj.text = text;
 		
-		// ÓÃWXTextObject¶ÔÏó³õÊ¼»¯Ò»¸öWXMediaMessage¶ÔÏó
+		// ç”¨WXTextObjectå¯¹è±¡åˆå§‹åŒ–ä¸€ä¸ªWXMediaMessageå¯¹è±¡
 		WXMediaMessage msg = new WXMediaMessage();
 		msg.mediaObject = textObj;
-		// ·¢ËÍÎÄ±¾ÀàĞÍµÄÏûÏ¢Ê±£¬title×Ö¶Î²»Æğ×÷ÓÃ
+		// å‘é€æ–‡æœ¬ç±»å‹çš„æ¶ˆæ¯æ—¶ï¼Œtitleå­—æ®µä¸èµ·ä½œç”¨
 		// msg.title = "Will be ignored";
 		msg.description = text;
 		
-		// ¹¹ÔìÒ»¸öReq
+		// æ„é€ ä¸€ä¸ªReq
 		SendMessageToWX.Req req = new SendMessageToWX.Req();
-		req.transaction = buildTransaction("text"); // transaction×Ö¶ÎÓÃÓÚÎ¨Ò»±êÊ¶Ò»¸öÇëÇó
+		req.transaction = buildTransaction("text"); // transactionå­—æ®µç”¨äºå”¯ä¸€æ ‡è¯†ä¸€ä¸ªè¯·æ±‚
 		req.message = msg;
 		req.scene = SendMessageToWX.Req.WXSceneTimeline;
 		
-		// µ÷ÓÃapi½Ó¿Ú·¢ËÍÊı¾İµ½Î¢ĞÅ
+		// è°ƒç”¨apiæ¥å£å‘é€æ•°æ®åˆ°å¾®ä¿¡
 		api.sendReq(req);
 	}
 	
@@ -109,7 +109,7 @@ public class MainActivity extends Activity implements IWXAPIEventHandler{
 		return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
 	}
 	
-	// µÚÈı·½Ó¦ÓÃ·¢ËÍµ½Î¢ĞÅµÄÇëÇó´¦ÀíºóµÄÏìÓ¦½á¹û£¬»á»Øµ÷µ½¸Ã·½·¨
+	// ç¬¬ä¸‰æ–¹åº”ç”¨å‘é€åˆ°å¾®ä¿¡çš„è¯·æ±‚å¤„ç†åçš„å“åº”ç»“æœï¼Œä¼šå›è°ƒåˆ°è¯¥æ–¹æ³•
 	@Override
 	public void onResp(BaseResp resp) {
 		int result = 0;
@@ -132,7 +132,7 @@ public class MainActivity extends Activity implements IWXAPIEventHandler{
 		Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 	}
 	
-	// Î¢ĞÅ·¢ËÍÇëÇóµ½µÚÈı·½Ó¦ÓÃÊ±£¬»á»Øµ÷µ½¸Ã·½·¨
+	// å¾®ä¿¡å‘é€è¯·æ±‚åˆ°ç¬¬ä¸‰æ–¹åº”ç”¨æ—¶ï¼Œä¼šå›è°ƒåˆ°è¯¥æ–¹æ³•
 	@Override
 	public void onReq(BaseReq req) {
 		switch (req.getType()) {

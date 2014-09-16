@@ -17,7 +17,7 @@ public class AppRegister extends BroadcastReceiver {
 
 		final IWXAPI api = WXAPIFactory.createWXAPI(arg0, null);
 
-		// ½«¸Ãapp×¢²áµ½Î¢ÐÅ
+		// å°†è¯¥appæ³¨å†Œåˆ°å¾®ä¿¡
 		api.registerApp(Constants.APP_ID);
 	}
 

@@ -36,8 +36,7 @@ import android.widget.Toast;
  */
 public class SendAnnounceActivity extends Activity {
 
-	//private String postURL = "http://192.168.1.100:8080/webLand/announce.jsp";
-	private String postURL = "http://172.27.0.1:8080/webLand/announce.jsp";
+	private String postURL = Announce.HOSTADDR + "/webLand/announce.jsp";
 	
 	private Context mContext;
 	private EditText etTitle;
@@ -60,12 +59,12 @@ public class SendAnnounceActivity extends Activity {
 		String content = etContent.getText().toString();
 		
 		if(title.length() < 1 || content.length() < 1) {
-			Toast.makeText(mContext, "±êÌâ»òÄÚÈİ²»ÔÊĞíÎª¿Õ!", 1).show();
+			Toast.makeText(mContext, "æ ‡é¢˜æˆ–å†…å®¹ä¸å…è®¸ä¸ºç©º!", 1).show();
 			return;
 		}
 		
-		List<NameValuePair> params = new ArrayList<NameValuePair>();  //Ê¹ÓÃNameValuePairÀ´±£´æÒª´«µİµÄPost²ÎÊı
-		params.add(new BasicNameValuePair("title", title));    //Ìí¼ÓÒª´«µİµÄ²ÎÊı
+		List<NameValuePair> params = new ArrayList<NameValuePair>();  //ä½¿ç”¨NameValuePairæ¥ä¿å­˜è¦ä¼ é€’çš„Postå‚æ•°
+		params.add(new BasicNameValuePair("title", title));    //æ·»åŠ è¦ä¼ é€’çš„å‚æ•°
 		params.add(new BasicNameValuePair("content", content));
 		connectPost(postURL, params);
 		
@@ -75,14 +74,14 @@ public class SendAnnounceActivity extends Activity {
 	}
 	
 	private void connectPost(String url, List<NameValuePair> params){
-		HttpClient httpClient = new DefaultHttpClient();    // ĞÂ½¨HttpClient¶ÔÏó
-		HttpPost httpPost = new HttpPost(url);    // ĞÂ½¨HttpPost¶ÔÏó
+		HttpClient httpClient = new DefaultHttpClient();    // æ–°å»ºHttpClientå¯¹è±¡
+		HttpPost httpPost = new HttpPost(url);    // æ–°å»ºHttpPostå¯¹è±¡
 		
 		try {
-			 HttpEntity entity = new UrlEncodedFormEntity(params, HTTP.UTF_8);  // ÉèÖÃ×Ö·û¼¯
-    	     httpPost.setEntity(entity);    // ÉèÖÃ²ÎÊıÊµÌå
-    	     HttpResponse httpResp = httpClient.execute(httpPost); // »ñÈ¡HttpResponseÊµÀı
-    		if(httpResp.getStatusLine().getStatusCode() == HttpStatus.SC_OK){  //ÏìÓ¦Í¨¹ı
+			 HttpEntity entity = new UrlEncodedFormEntity(params, HTTP.UTF_8);  // è®¾ç½®å­—ç¬¦é›†
+    	     httpPost.setEntity(entity);    // è®¾ç½®å‚æ•°å®ä½“
+    	     HttpResponse httpResp = httpClient.execute(httpPost); // è·å–HttpResponseå®ä¾‹
+    		if(httpResp.getStatusLine().getStatusCode() == HttpStatus.SC_OK){  //å“åº”é€šè¿‡
     			String result = EntityUtils.toString(httpResp.getEntity(), "UTF-8");   
     			
     			/*
@@ -92,7 +91,7 @@ public class SendAnnounceActivity extends Activity {
     			startActivity(httpclientIntent);
     			*/
     		}else{
-    			//ÏìÓ¦Î´Í¨¹ı
+    			//å“åº”æœªé€šè¿‡
     			System.out.println(httpResp.getStatusLine().toString());
     		}
 		} catch (UnsupportedEncodingException e) {

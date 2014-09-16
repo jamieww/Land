@@ -44,10 +44,9 @@ import android.widget.Toast;
 
 public class ShowAnnounceActivity extends Activity {
 
-	//private String landURL = "http://192.168.1.100:8080/webLand/announce_xml.jsp";
-	//private String postURL = "http://192.168.1.100:8080/webLand/announce.jsp";
-	private String landURL = "http://172.27.0.1:8080/webLand/announce_xml.jsp";
-	private String postURL = "http://172.27.0.1:8080/webLand/announce.jsp";
+	private String landURL = Announce.HOSTADDR + "/webLand/announce_xml.jsp";
+	//private String landURL = "http://197.168.1.109:8080/webLand/announce.xml";
+	private String postURL = Announce.HOSTADDR + "/webLand/announce.jsp";
 	private HttpClient httpClient = new DefaultHttpClient();
 	
 	private List<Announce> announces;
@@ -89,8 +88,8 @@ public class ShowAnnounceActivity extends Activity {
 			
 			seqid = String.valueOf(info.id);
 			
-			List<NameValuePair> params = new ArrayList<NameValuePair>();  //Ê¹ÓÃNameValuePairÀ´±£´æÒª´«µİµÄPost²ÎÊı
-			params.add(new BasicNameValuePair("seqid", seqid));    //Ìí¼ÓÒª´«µİµÄ²ÎÊı
+			List<NameValuePair> params = new ArrayList<NameValuePair>();  //ä½¿ç”¨NameValuePairæ¥ä¿å­˜è¦ä¼ é€’çš„Postå‚æ•°
+			params.add(new BasicNameValuePair("seqid", seqid));    //æ·»åŠ è¦ä¼ é€’çš„å‚æ•°
 			connectPost(postURL, params);
 			
 			loadAnnounceFromServer();
@@ -99,7 +98,7 @@ public class ShowAnnounceActivity extends Activity {
 			
 			TextView title = (TextView)info.targetView.findViewById(R.id.annTitle);
 			
-			Toast.makeText(this, "É¾³ıÁË¡°" + title.getText().toString() + "¡±", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "åˆ é™¤äº†â€œ" + title.getText().toString() + "â€", Toast.LENGTH_SHORT).show();
 			break;
 		default:
 			break;
@@ -133,16 +132,18 @@ public class ShowAnnounceActivity extends Activity {
 	}
 	
 	private void loadAnnounceFromServer() {
-		//ÉèÖÃÁ¬½Ó³¬Ê±
+		//è®¾ç½®è¿æ¥è¶…æ—¶
 		HttpConnectionParams.setConnectionTimeout(httpClient.getParams(), 10000);
-		//ÉèÖÃÊı¾İ¶ÁÈ¡Ê±¼ä³¬Ê±
+		//è®¾ç½®æ•°æ®è¯»å–æ—¶é—´è¶…æ—¶
 		HttpConnectionParams.setSoTimeout(httpClient.getParams(), 30000);
-		//ÉèÖÃ´ÓÁ¬½Ó³ØÖĞÈ¡Á¬½Ó³¬Ê±
+		//è®¾ç½®ä»è¿æ¥æ± ä¸­å–è¿æ¥è¶…æ—¶
 		ConnManagerParams.setTimeout(httpClient.getParams(), 10000);
 		System.out.println("Show Announce Activity 2");
 		
 		HttpGet httpget = new HttpGet(landURL);
+		System.out.println("landURL: " + landURL);
 		try {
+			System.out.println("##############################");
 			HttpResponse response = httpClient.execute(httpget); 
 			System.out.println("Show Announce Activity 3");
 			if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
@@ -157,22 +158,24 @@ public class ShowAnnounceActivity extends Activity {
 			}
 		}
 		catch (ClientProtocolException e) {
+			System.out.println("ClientProtocolException ###### ");
 			e.printStackTrace();
 		}
 		catch(IOException e) {
+			System.out.println("IOException ###### ");
 			e.printStackTrace();
 		}
 	}
 	
 	private void connectPost(String url, List<NameValuePair> params){
-		HttpClient httpClient = new DefaultHttpClient();    // ĞÂ½¨HttpClient¶ÔÏó
-		HttpPost httpPost = new HttpPost(url);    // ĞÂ½¨HttpPost¶ÔÏó
+		HttpClient httpClient = new DefaultHttpClient();    // æ–°å»ºHttpClientå¯¹è±¡
+		HttpPost httpPost = new HttpPost(url);    // æ–°å»ºHttpPostå¯¹è±¡
 		
 		try {
-			 HttpEntity entity = new UrlEncodedFormEntity(params, HTTP.UTF_8);  // ÉèÖÃ×Ö·û¼¯
-    	     httpPost.setEntity(entity);    // ÉèÖÃ²ÎÊıÊµÌå
-    	     HttpResponse httpResp = httpClient.execute(httpPost); // »ñÈ¡HttpResponseÊµÀı
-    		if(httpResp.getStatusLine().getStatusCode() == HttpStatus.SC_OK){  //ÏìÓ¦Í¨¹ı
+			 HttpEntity entity = new UrlEncodedFormEntity(params, HTTP.UTF_8);  // è®¾ç½®å­—ç¬¦é›†
+    	     httpPost.setEntity(entity);    // è®¾ç½®å‚æ•°å®ä½“
+    	     HttpResponse httpResp = httpClient.execute(httpPost); // è·å–HttpResponseå®ä¾‹
+    		if(httpResp.getStatusLine().getStatusCode() == HttpStatus.SC_OK){  //å“åº”é€šè¿‡
     			String result = EntityUtils.toString(httpResp.getEntity(), "UTF-8");   
     			
     			/*
@@ -182,7 +185,7 @@ public class ShowAnnounceActivity extends Activity {
     			startActivity(httpclientIntent);
     			*/
     		}else{
-    			//ÏìÓ¦Î´Í¨¹ı
+    			//å“åº”æœªé€šè¿‡
     			System.out.println(httpResp.getStatusLine().toString());
     		}
 		} catch (UnsupportedEncodingException e) {
@@ -203,30 +206,30 @@ public class ShowAnnounceActivity extends Activity {
 
 		try {
 			/**
-			 * androidÌá¹©ÁËÒ»¸ö¹¤¾ßÀà'Xml'
-			 * Í¨¹ıÕâ¸ö¹¤¾ßÀà¿ÉÒÔºÜ·½±ãµØÈ¥newÒ»¸öPullµÄ½âÎöÆ÷,·µ»ØÀàĞÍÊÇXmlPullParser
+			 * androidæä¾›äº†ä¸€ä¸ªå·¥å…·ç±»'Xml'
+			 * é€šè¿‡è¿™ä¸ªå·¥å…·ç±»å¯ä»¥å¾ˆæ–¹ä¾¿åœ°å»newä¸€ä¸ªPullçš„è§£æå™¨,è¿”å›ç±»å‹æ˜¯XmlPullParser
 			 **/
-			XmlPullParserFactory factory = XmlPullParserFactory.newInstance();   //´´½¨Ò»¸öXmlPullParser½âÎöµÄ¹¤³§
+			XmlPullParserFactory factory = XmlPullParserFactory.newInstance();   //åˆ›å»ºä¸€ä¸ªXmlPullParserè§£æçš„å·¥å‚
 			factory.setNamespaceAware(true);
 			
-			XmlPullParser xmlPull = factory.newPullParser(); //»ñÈ¡Ò»¸ö½âÎöÊµÀı
-			xmlPull.setInput(inStream, "UTF-8");    //ÉèÖÃÊäÈëÁ÷µÄ±àÂë¸ñÊ½
+			XmlPullParser xmlPull = factory.newPullParser(); //è·å–ä¸€ä¸ªè§£æå®ä¾‹
+			xmlPull.setInput(inStream, "UTF-8");    //è®¾ç½®è¾“å…¥æµçš„ç¼–ç æ ¼å¼
 			/**
-			 * ´¥·¢ÊÂ¼şgetEventType() =·µ»ØÊÂ¼şÂë µ±ËüÓöµ½Ä³¸ö×Ö·û,Èç¹û·ûºÏxmlµÄÓï·¨¹æ·¶. Ëü¾Í»á³ö·¢Õâ¸öÓï·¨Ëù´ú±íµÄÊı×Ö
+			 * è§¦å‘äº‹ä»¶getEventType() =è¿”å›äº‹ä»¶ç  å½“å®ƒé‡åˆ°æŸä¸ªå­—ç¬¦,å¦‚æœç¬¦åˆxmlçš„è¯­æ³•è§„èŒƒ. å®ƒå°±ä¼šå‡ºå‘è¿™ä¸ªè¯­æ³•æ‰€ä»£è¡¨çš„æ•°å­—
 			 **/
 			int eventCode = xmlPull.getEventType();
 
 			/**
-			 * ½âÎöÊÂ¼ş: StartDocument,ÎÄµµ¿ªÊ¼ Enddocument,ÎÄµµ½áÊø Ã¿´Î¶Áµ½Ò»¸ö×Ö·û,¾Í²úÉúÒ»¸öÊÂ¼ş
-			 * Ö»Òª½âÎöxmlÎÄµµÊÂ¼ş²»Îª¿Õ,¾ÍÒ»Ö±ÍùÏÂ¶Á
+			 * è§£æäº‹ä»¶: StartDocument,æ–‡æ¡£å¼€å§‹ Enddocument,æ–‡æ¡£ç»“æŸ æ¯æ¬¡è¯»åˆ°ä¸€ä¸ªå­—ç¬¦,å°±äº§ç”Ÿä¸€ä¸ªäº‹ä»¶
+			 * åªè¦è§£æxmlæ–‡æ¡£äº‹ä»¶ä¸ä¸ºç©º,å°±ä¸€ç›´å¾€ä¸‹è¯»
 			 **/
 			while (eventCode != XmlPullParser.END_DOCUMENT) {
 				switch (eventCode) {
-				case XmlPullParser.START_DOCUMENT: // ÎÄµµ¿ªÊ¼ÊÂ¼ş,¿ÉÒÔ×öÒ»Ğ©Êı¾İ³õÊ¼»¯´¦Àí
+				case XmlPullParser.START_DOCUMENT: // æ–‡æ¡£å¼€å§‹äº‹ä»¶,å¯ä»¥åšä¸€äº›æ•°æ®åˆå§‹åŒ–å¤„ç†
 					announces = new ArrayList<Announce>();
 					break;
 
-				case XmlPullParser.START_TAG:// ÔªËØ¿ªÊ¼.
+				case XmlPullParser.START_TAG:// å…ƒç´ å¼€å§‹.
 					String name = xmlPull.getName();
 					if (name.equalsIgnoreCase("announce")) {
 						currentAnnounce = new Announce();
@@ -244,7 +247,7 @@ public class ShowAnnounceActivity extends Activity {
 						}
 					}
 					break;
-				case XmlPullParser.END_TAG: // ÔªËØ½áÊø,
+				case XmlPullParser.END_TAG: // å…ƒç´ ç»“æŸ,
 					if (currentAnnounce != null
 							&& xmlPull.getName().equalsIgnoreCase("announce")) {
 						announces.add(currentAnnounce);
@@ -252,7 +255,7 @@ public class ShowAnnounceActivity extends Activity {
 					}
 					break;
 				}
-				eventCode = xmlPull.next();// ½øÈëµ½Ò»ÏÂÒ»¸öÔªËØ.
+				eventCode = xmlPull.next();// è¿›å…¥åˆ°ä¸€ä¸‹ä¸€ä¸ªå…ƒç´ .
 			}
 		} catch (XmlPullParserException e) {
 			e.printStackTrace();
